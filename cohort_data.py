@@ -1,4 +1,15 @@
 """Functions to parse a file containing student data."""
+def structure_file(filename):
+    file_name = open(filename)
+    structured_list = []
+
+    for line in file_name:
+        line = line.rstrip()
+        words = line.split("|")
+
+        structured_list.append(words)
+
+    return structured_list
 
 
 def unique_houses(filename):
@@ -15,13 +26,13 @@ def unique_houses(filename):
     """
 
     # Code goes here
-    file_name = open(filename)
+    filename = structure_file(filename)
     houses = set()
-    for line in file_name:
-        line = line.rstrip()
-        words = line.split("|")
-        if "" not in words:
-            houses.add(words[2])
+
+    for line in filename:
+        for house in line:
+            if "" not in line:
+                houses.add(line[2])
 
     return houses
 
@@ -34,7 +45,7 @@ def sort_by_cohort(filename):
 
     Iterate over the data to create a list for each cohort. Puts ghosts into a
     separate list called "ghosts".
-
+    
     For example:
 
     >>> sort_by_cohort("cohort_data.txt")
@@ -49,6 +60,23 @@ def sort_by_cohort(filename):
     ghosts = []
 
     # Code goes here
+
+    filename = structure_file(filename)
+
+    for wizard_idx in range(len(filename)):
+        if filename[wizard_idx][-1] == "Winter 2016":
+            winter_16.append(filename[wizard_idx][0] + " " + filename[wizard_idx][1])
+
+        if filename[wizard_idx][-1] == "Spring 2016":
+            spring_16.append(filename[wizard_idx][0] + " " + filename[wizard_idx][1])
+        if filename[wizard_idx][-1] == "Fall 2015":
+            fall_15.append(filename[wizard_idx][0] + " " + filename[wizard_idx][1])
+        if filename[wizard_idx][-1] == "Summer 2016":
+            summer_16.append(filename[wizard_idx][0] + " " + filename[wizard_idx][1])
+        if filename[wizard_idx][-1] == "G":
+            ghosts.append(filename[wizard_idx][0] + " " + filename[wizard_idx][1])
+
+    all_students = [fall_15, winter_16, spring_16, summer_16, ghosts]
 
     return all_students
 
