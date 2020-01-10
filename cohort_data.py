@@ -105,6 +105,34 @@ def hogwarts_by_house(filename):
     instructors = []
 
     # Code goes here
+    filename = structure_file(filename)
+
+    for wizard_idx in range(len(filename)):
+        if filename[wizard_idx][2] == "Gryffindor":
+            gryffindor.append(filename[wizard_idx][1])
+        if filename[wizard_idx][2] == "Hufflepuff":
+            hufflepuff.append(filename[wizard_idx][1])
+        if filename[wizard_idx][2] == "Ravenclaw":
+            ravenclaw.append(filename[wizard_idx][1])
+        if filename[wizard_idx][2] == "Slytherin":
+            slytherin.append(filename[wizard_idx][1])
+        if filename[wizard_idx][2] == "Dumbledore's Army":
+            dumbledores_army.append(filename[wizard_idx][1])
+        if filename[wizard_idx][-1] == "G":
+            ghosts.append(filename[wizard_idx][1])
+        if filename[wizard_idx][-1] == "I":
+            instructors.append(filename[wizard_idx][1])
+
+    dumbledores_army.sort()
+    gryffindor.sort()
+    hufflepuff.sort()
+    ravenclaw.sort()
+    slytherin.sort()
+    ghosts.sort()
+    instructors.sort()
+
+    all_hogwarts = [dumbledores_army, gryffindor, hufflepuff, ravenclaw,
+                    slytherin, ghosts, instructors]
 
     return all_hogwarts
 
