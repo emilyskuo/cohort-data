@@ -154,6 +154,15 @@ def all_students_tuple_list(filename):
 
     # Code goes here
 
+    filename = structure_file(filename)
+
+    for wizard_idx in range(len(filename)):
+        if len(filename[wizard_idx][-1]) > 1:
+            student_list.append((filename[wizard_idx][0] + " " + 
+                filename[wizard_idx][1],) + tuple(filename[wizard_idx][2:]))
+
+
+
     return student_list
 
 
