@@ -1,6 +1,7 @@
 """Functions to parse a file containing student data."""
 def structure_file(filename):
     file_name = open(filename)
+    # with open(filename) as file_name: (indent)
     structured_list = []
 
     for line in file_name:
@@ -8,6 +9,8 @@ def structure_file(filename):
         words = line.split("|")
 
         structured_list.append(words)
+
+    file_name.close()
 
     return structured_list
 
@@ -26,10 +29,10 @@ def unique_houses(filename):
     """
 
     # Code goes here
-    filename = structure_file(filename)
+    structured_list = structure_file(filename)
     houses = set()
 
-    for line in filename:
+    for line in structured_list:
         for house in line:
             if "" not in line:
                 houses.add(line[2])
@@ -156,10 +159,15 @@ def all_students_tuple_list(filename):
 
     filename = structure_file(filename)
 
-    for wizard_idx in range(len(filename)):
-        if len(filename[wizard_idx][-1]) > 1:
-            student_list.append((filename[wizard_idx][0] + " " + 
-                filename[wizard_idx][1],) + tuple(filename[wizard_idx][2:]))
+    # for wizard_idx in range(len(filename)):
+    #     if len(filename[wizard_idx][-1]) > 1:
+    #         student_list.append((filename[wizard_idx][0] + " " + 
+    #             filename[wizard_idx][1],) + tuple(filename[wizard_idx][2:]))
+
+    for wizard_idx in filename:
+        if len(wizard_idx[-1]) > 1:
+            student_list.append((wizard_idx[0] + " " + 
+                wizard_idx[1],) + tuple(wizard_idx[2:]))
 
 
 
@@ -188,7 +196,19 @@ def find_cohort_by_student_name(student_list):
 
     # Code goes here
 
-    return "Student not found."
+    user_search_for_wizard = input("Who are you looking for? ")
+
+
+    if user_search_for_wizard in student_list:
+        searched_wizard_index = student_list.index(user_search_for_wizard)
+        
+        student_cohort = student_list[searched_wizard_index][-1]
+
+        return print(f"{user_search_for_wizard} was in the {student_cohort}.")
+
+    else:
+
+        return print("Student not found.")
 
 
 ##########################################################################################
@@ -247,8 +267,8 @@ def find_house_members_by_student_name(student_list):
 
 #############################################################################
 # Here is some useful code to run these functions without doctests!
-
-# find_cohort_by_student_name(all_students_data)
+all_students_data = all_students_tuple_list("cohort_data.txt")
+find_cohort_by_student_name(all_students_data)
 # find_house_members_by_student_name(all_students_data)
 
 
